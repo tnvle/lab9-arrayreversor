@@ -14,7 +14,7 @@ import edu.mum.cs.cs425.lab9.arrayreversor.tddusingstubnmocks.service.ArrayFlatt
 
 public class ArrayReversorTest {
 
-private ArrayReversor reversor;
+	private ArrayReversor reversor;
 	
 	private ArrayFlattenerService flattenService = mock(ArrayFlattenerService.class);
 
@@ -30,18 +30,22 @@ private ArrayReversor reversor;
 	
 	@Test
 	public void testReverseArray() {
-		when(flattenService.flattenArray(new int[][]{{1,3}, {0}, {4,5,9}})).thenReturn(new int[]{1,3,0,4,5,9});
-		int[] arrReversed = reversor.reverseArray(new int[][]{{1,3}, {0}, {4,5,9}});
+		int[][] a_in = new int[][]{{1,3}, {0}, {4,5,9}};
+		when(flattenService.flattenArray(a_in)).thenReturn(new int[]{1,3,0,4,5,9});
+		int[] arrReversed = reversor.reverseArray(a_in);
 		Assert.assertArrayEquals(new int[] {9, 5, 4, 0, 3, 1}, arrReversed);
-		verify(flattenService).flattenArray(new int[][]{{1,3}, {0}, {4,5,9}});
+		verify(flattenService).flattenArray(a_in);
 	}
 	
 	@Test
 	public void testReverseArrayNull() {
-		when(flattenService.flattenArray(null)).thenReturn(null);
-		int[] arrReversed = reversor.reverseArray(null);
-		Assert.assertArrayEquals(null, arrReversed);
-		verify(flattenService).flattenArray(null);
+		int[][] a_in = null;
+		when(flattenService.flattenArray(a_in)).thenReturn(null);
+		int[] arrReversed = reversor.reverseArray(a_in);
+		int[] expected = null;
+		Assert.assertArrayEquals(expected, arrReversed);
+		verify(flattenService).flattenArray(a_in);
+		
 	}
 
 }
